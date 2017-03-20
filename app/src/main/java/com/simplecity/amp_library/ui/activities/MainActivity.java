@@ -1143,6 +1143,7 @@ public class MainActivity extends BaseCastActivity implements
             }
         }
 
+
         if (ShuttleUtils.hasLollipop()) {
             getWindow().setStatusBarColor(ColorUtils.adjustAlpha(ColorUtils.getPrimaryColorDark(this), alpha));
         }
