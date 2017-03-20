@@ -10,6 +10,7 @@ buildscript {
         classpath gradlePlugins.retrolambda
         classpath gradlePlugins.googleServices
         classpath gradlePlugins.playPublisher
+        classpath 'com.android.tools.build:gradle:2.3.0'
     }
 }
 
