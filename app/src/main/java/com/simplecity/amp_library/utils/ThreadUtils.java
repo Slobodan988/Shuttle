@@ -3,7 +3,7 @@ package com.simplecity.amp_library.utils;
 import android.os.Looper;
 import android.support.v4.preferencefragment.BuildConfig;
 
-import com.crashlytics.android.core.CrashlyticsCore;
+//import com.crashlytics.android.core.CrashlyticsCore;
 
 public class ThreadUtils {
 
@@ -16,7 +16,7 @@ public class ThreadUtils {
             if (BuildConfig.DEBUG) {
                 throw new IllegalStateException("ensureNotOnMainThread failed.");
             } else {
-                CrashlyticsCore.getInstance().log("ThreadUtils ensureNotOnMainThread() failed");
+                //CrashlyticsCore.getInstance().log("ThreadUtils ensureNotOnMainThread() failed");
             }
         }
     }

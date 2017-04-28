@@ -739,4 +739,6 @@ karpeta</item>
     <string name="shortcut_playlist_disabled">Zerrenda ez dago eskuragarri</string>
     <!-- Displayed in list of songs for multi-disc album. E.g "Disc 1)-->
     <string name="disc_number_label"><xliff:g id="number">%d</xliff:g>. Diskoa</string>
+    <string name="privacy_policy">Privacy policy</string>
+    <string name="licences">Licences</string>
 </resources>

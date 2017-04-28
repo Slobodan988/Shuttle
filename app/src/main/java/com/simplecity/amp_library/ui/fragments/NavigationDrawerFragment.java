@@ -19,7 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.crashlytics.android.core.CrashlyticsCore;
+//import com.crashlytics.android.core.CrashlyticsCore;
 import com.simplecity.amp_library.R;
 import com.simplecity.amp_library.interfaces.DrawerListCallbacks;
 import com.simplecity.amp_library.model.DrawerGroupItem;
@@ -233,8 +233,8 @@ public class NavigationDrawerFragment extends BaseFragment implements
                                 .toList())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
-                                items -> mAdapter.setPlaylistData(items),
-                                error -> CrashlyticsCore.getInstance().log("Error refreshing NavigationDrawerFragment adapter items: " + error.toString())
+                                items -> mAdapter.setPlaylistData(items)
+                               // error -> CrashlyticsCore.getInstance().log("Error refreshing NavigationDrawerFragment adapter items: " + error.toString())
                         );
             }
         });

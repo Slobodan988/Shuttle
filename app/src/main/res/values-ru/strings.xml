@@ -680,4 +680,8 @@
     <!-- "Playlist" Shortcut long label. Max 25 characters.-->
     <!-- "Playlist" Shortcut label disabled. Possibly shows if the playlist has been deleted.-->
     <!-- Displayed in list of songs for multi-disc album. E.g "Disc 1)-->
+
+    <string name="continue_label">Продолжить</string>
+    <string name="privacy_policy">Privacy policy</string>
+    <string name="licences">Licences</string>
 </resources>

@@ -741,4 +741,8 @@ cartelle "</item>
     <string name="shortcut_playlist_disabled">Playlist non disponibile</string>
     <!-- Displayed in list of songs for multi-disc album. E.g "Disc 1)-->
     <string name="disc_number_label">Disco <xliff:g id="number">%d</xliff:g></string>
+
+    <string name="continue_label">Continua</string>
+    <string name="privacy_policy">Privacy policy</string>
+    <string name="licences">Licences</string>
 </resources>

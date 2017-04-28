@@ -736,4 +736,8 @@ www.shuttlemusicplayer.com</string>
     <string name="shortcut_playlist_disabled">播放列表不可用</string>
     <!-- Displayed in list of songs for multi-disc album. E.g "Disc 1)-->
     <string name="disc_number_label">音轨<xliff:g id="number">%d</xliff:g></string>
+
+    <string name="continue_label">继续</string>
+    <string name="privacy_policy">Privacy policy</string>
+    <string name="licences">Licences</string>
 </resources>

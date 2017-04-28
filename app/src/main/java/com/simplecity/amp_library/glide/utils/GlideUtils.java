@@ -22,12 +22,12 @@ public class GlideUtils {
 
     @DrawableRes
     public static int getMediumPlaceHolderResId() {
-        return ThemeUtils.getInstance().isThemeDark() ? R.drawable.ic_placeholder_dark_medium : R.drawable.ic_placeholder_light_medium;
+        return ThemeUtils.getInstance().isThemeDark() ? R.drawable.placeholder_large : R.drawable.placeholder_large;
     }
 
     @DrawableRes
     public static int getLargePlaceHolderResId() {
-        return ThemeUtils.getInstance().isThemeDark() ? R.drawable.ic_placeholder_dark_large : R.drawable.ic_placeholder_light_large;
+        return ThemeUtils.getInstance().isThemeDark() ? R.drawable.placeholder_large : R.drawable.placeholder_large;
     }
 
     public static Drawable getPlaceHolderDrawable(@Nullable String displayName, boolean large) {

@@ -422,7 +422,7 @@ public abstract class BaseWidgetConfigure extends BaseActivity implements
                     Glide.with(this)
                             .load(MusicUtils.getSong())
                             .diskCacheStrategy(DiskCacheStrategy.ALL)
-                            .placeholder(R.drawable.ic_placeholder_light_medium)
+                            .placeholder(R.drawable.placeholder_large)
                             .into(albumArt);
                 }
             }

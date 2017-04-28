@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -20,6 +21,8 @@ import com.simplecity.amp_library.IabManager;
 import com.simplecity.amp_library.R;
 import com.simplecity.amp_library.ShuttleApplication;
 import com.simplecity.amp_library.constants.Config;
+import com.simplecity.amp_library.ui.fragments.LicenenceFragment;
+import com.simplecity.amp_library.ui.fragments.PolicyFragment;
 import com.simplecity.amp_library.ui.fragments.SettingsFragment;
 import com.simplecity.amp_library.utils.ColorUtils;
 import com.simplecity.amp_library.utils.DialogUtils;
@@ -160,4 +163,27 @@ public class SettingsActivity extends BaseActivity {
     protected String screenName() {
         return TAG;
     }
+
+    Fragment policyFragment;
+    public void openPrivacyPolice() {
+        String uri = "https://www.facebook.com/notes/ultimate-ringtones-apps/privacy-policy/138551396666344";
+        policyFragment = new PolicyFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("url", uri);
+        policyFragment.setArguments(bundle);
+
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.main_container, policyFragment,"policy_fragment_tag");
+
+        ft.addToBackStack("map");
+        ft.commit();
+    }
+    public void openLicenses(){
+        Fragment licensesFragment = new LicenenceFragment();
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.main_container, licensesFragment,"policy_fragment_tag");
+        ft.addToBackStack("map");
+        ft.commit();
+    }
+
 }

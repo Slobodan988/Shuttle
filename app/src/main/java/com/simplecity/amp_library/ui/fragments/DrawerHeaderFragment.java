@@ -58,7 +58,7 @@ public class DrawerHeaderFragment extends BaseFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mBackgroundDrawable = getResources().getDrawable(R.drawable.ic_drawer_header_placeholder);
+        mBackgroundDrawable = getResources().getDrawable(R.drawable.placeholder_large);
         mBackgroundDrawable.setColorFilter(new LightingColorFilter(ColorUtils.getPrimaryColor(), 0x00222222));
 
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this.getActivity());

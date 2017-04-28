@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "816563253015",
+    "firebase_url": "https://mymusicplayer-945f3.firebaseio.com",
+    "project_id": "mymusicplayer-945f3",
+    "storage_bucket": "mymusicplayer-945f3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:816563253015:android:a61c291402435712",
+        "android_client_info": {
+          "package_name": "com.mymusicplayer.reproductordemusica"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "816563253015-vbdlujlurr7ukp4tnm24s79l2mh3asvr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBW410B3Fq0rjaL2rSCgBQIq_0DHw23rkQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -8,7 +8,7 @@ import android.support.v4.provider.DocumentFile;
 import android.util.Log;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.Crashlytics;
 import com.simplecity.amp_library.R;
 import com.simplecity.amp_library.ShuttleApplication;
 import com.simplecity.amp_library.utils.DialogUtils;
@@ -155,7 +155,7 @@ public class TaggerUtils {
                 }
             }
         } catch (NoSuchMethodError e) {
-            Crashlytics.log("getExtSdCardPaths() failed. " + e.getMessage());
+            //Crashlytics.log("getExtSdCardPaths() failed. " + e.getMessage());
         }
         return paths.toArray(new String[paths.size()]);
     }

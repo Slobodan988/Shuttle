@@ -35,9 +35,9 @@
         android:key="pref_about"
         android:layout="@layout/preference_header"
         android:title="@string/pref_title_about" />
-    <Preference
-        android:icon="@drawable/ic_settings_purchase"
-        android:key="pref_upgrade"
-        android:layout="@layout/preference_header"
-        android:title="@string/get_pro_title" />
+    <!--<Preference-->
+        <!--android:icon="@drawable/ic_settings_purchase"-->
+        <!--android:key="pref_upgrade"-->
+        <!--android:layout="@layout/preference_header"-->
+        <!--android:title="@string/get_pro_title" />-->
 </PreferenceScreen>

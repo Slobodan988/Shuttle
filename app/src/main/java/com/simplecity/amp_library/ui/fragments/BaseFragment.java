@@ -8,7 +8,7 @@ import android.view.animation.AnimationUtils;
 
 import com.simplecity.amp_library.ShuttleApplication;
 import com.simplecity.amp_library.utils.AnalyticsManager;
-import com.squareup.leakcanary.RefWatcher;
+//import com.squareup.leakcanary.RefWatcher;
 
 import java.lang.reflect.Field;
 
@@ -80,8 +80,8 @@ public abstract class BaseFragment extends Fragment {
     public void onDestroy() {
 
         super.onDestroy();
-        RefWatcher refWatcher = ShuttleApplication.getInstance().getRefWatcher();
-        refWatcher.watch(this);
+//        RefWatcher refWatcher = ShuttleApplication.getInstance().getRefWatcher();
+//        refWatcher.watch(this);
     }
 
     protected abstract String screenName();

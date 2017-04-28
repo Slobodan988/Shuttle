@@ -97,7 +97,7 @@ public class CustomAppWidgetTarget extends SimpleTarget<Bitmap> {
     @Override
     public void onLoadFailed(Exception e, Drawable errorDrawable) {
         super.onLoadFailed(e, errorDrawable);
-        this.remoteViews.setImageViewResource(R.id.album_art, R.drawable.ic_placeholder_light_medium);
+        this.remoteViews.setImageViewResource(R.id.album_art, R.drawable.placeholder_large);
         this.update();
     }
 }

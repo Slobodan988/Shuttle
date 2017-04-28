@@ -10,7 +10,7 @@ import android.util.Pair;
 
 import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
-import com.crashlytics.android.core.CrashlyticsCore;
+//import com.crashlytics.android.core.CrashlyticsCore;
 import com.simplecity.amp_library.R;
 import com.simplecity.amp_library.ShuttleApplication;
 import com.simplecity.amp_library.sql.SqlUtils;
@@ -147,7 +147,7 @@ public class Playlist implements Serializable {
         }
 
         if (playlist == null) {
-            CrashlyticsCore.getInstance().log("favoritesPlaylist() returned null..");
+           // CrashlyticsCore.getInstance().log("favoritesPlaylist() returned null..");
         }
 
         return playlist;

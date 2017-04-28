@@ -22,7 +22,7 @@ ext.versions = [
         androidGradlePlugin    : "2.3.0",
         dexcountGradlePlugin   : "0.6.1",
         retrolambdaGradlePlugin: "3.4.0",
-        fabricGradlePlugin     : "1.+",
+        //fabricGradlePlugin     : "1.+",
         googleServicesPlugin   : "3.0.0",
         playPublisher          : "1.2.0-beta1",
 
@@ -40,7 +40,7 @@ ext.versions = [
         // /////////////////////////////////////////////////////////////////////////
 
         haha                   : "2.0.3",
-        leakCanary             : "1.5",
+        //leakCanary             : "1.5",
         okio                   : "1.11.0",
         okhttp                 : "3.5.0",
         retrofit               : "2.1.0",
@@ -52,7 +52,7 @@ ext.versions = [
         // /////////////////////////////////////////////////////////////////////////
 
         nanoHttp               : "2.3.1",
-        crashlytics            : "2.6.4@aar",
+       // crashlytics            : "2.6.4@aar",
         dashClockApi           : "2.0.0",
         fastScroll             : "1.0.14",
         glide                  : "3.8.0-SNAPSHOT",
@@ -96,7 +96,7 @@ ext.versions = [
 ext.gradlePlugins = [
         android       : "com.android.tools.build:gradle:$versions.androidGradlePlugin",
         dexcount      : "com.getkeepsafe.dexcount:dexcount-gradle-plugin:$versions.dexcountGradlePlugin",
-        fabric        : "io.fabric.tools:gradle:$versions.fabricGradlePlugin",
+        //fabric        : "io.fabric.tools:gradle:$versions.fabricGradlePlugin",
         retrolambda   : "me.tatarka:gradle-retrolambda:$versions.retrolambdaGradlePlugin",
         googleServices: "com.google.gms:google-services:$versions.googleServicesPlugin",
         playPublisher : "com.github.triplet.gradle:play-publisher:$versions.playPublisher"
@@ -125,8 +125,8 @@ ext.libs = [
         // /////////////////////////////////////////////////////////////////////////
 
         haha               : "com.squareup.haha:haha:$versions.haha",
-        leakCanaryDebug    : "com.squareup.leakcanary:leakcanary-android:$versions.leakCanary",
-        leakCanaryRel      : "com.squareup.leakcanary:leakcanary-android-no-op:$versions.leakCanary",
+      //  leakCanaryDebug    : "com.squareup.leakcanary:leakcanary-android:$versions.leakCanary",
+      //  leakCanaryRel      : "com.squareup.leakcanary:leakcanary-android-no-op:$versions.leakCanary",
         okio               : "com.squareup.okio:okio:$versions.okio",
         okhttp             : "com.squareup.okhttp3:okhttp:$versions.okhttp",
         retrofit           : "com.squareup.retrofit2:retrofit:$versions.retrofit",
@@ -140,7 +140,7 @@ ext.libs = [
         // NanoHttp - https://github.com/NanoHttpd/nanohttpd (Various)
         nanoHttp           : "org.nanohttpd:nanohttpd-webserver:$versions.nanoHttp",
         // Crashlytics - https://fabric.io/kits/android/crashlytics
-        crashlytics        : "com.crashlytics.sdk.android:crashlytics:$versions.crashlytics",
+       // crashlytics        : "com.crashlytics.sdk.android:crashlytics:$versions.crashlytics",
         // Dashclock - https://git.io/vix9g (Roman Nurik)
         dashClockApi       : "com.google.android.apps.dashclock:dashclock-api:$versions.dashClockApi",
         // RecyclerView-FastScroll - https://git.io/vix5z (dumb fuck)

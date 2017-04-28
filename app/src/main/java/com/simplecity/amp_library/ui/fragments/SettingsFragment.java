@@ -276,24 +276,24 @@ public class SettingsFragment extends PreferenceFragment {
             });
         }
 
-        final Preference upgrade = findPreference("pref_upgrade");
-        if (upgrade != null) {
-            if (ShuttleUtils.isUpgraded()) {
-                SettingsFragment.this.getPreferenceScreen().removePreference(upgrade);
-            }
-            upgrade.setOnPreferenceClickListener(preference -> {
-                DialogUtils.showUpgradeDialog(getActivity(),
-                        (materialDialog, dialogAction) -> {
-                            if (ShuttleUtils.isAmazonBuild()) {
-                                ShuttleUtils.openShuttleLink(getActivity(), "com.simplecity.amp_pro");
-                            } else {
-                                AnalyticsManager.logUpgrade(AnalyticsManager.UpgradeType.UPGRADE);
-                                ((SettingsActivity) getActivity()).purchasePremiumUpgrade();
-                            }
-                        });
-                return true;
-            });
-        }
+//        final Preference upgrade = findPreference("pref_upgrade");
+//        if (upgrade != null) {
+//            if (ShuttleUtils.isUpgraded()) {
+//                SettingsFragment.this.getPreferenceScreen().removePreference(upgrade);
+//            }
+//            upgrade.setOnPreferenceClickListener(preference -> {
+//                DialogUtils.showUpgradeDialog(getActivity(),
+//                        (materialDialog, dialogAction) -> {
+//                            if (ShuttleUtils.isAmazonBuild()) {
+//                                ShuttleUtils.openShuttleLink(getActivity(), "com.simplecity.amp_pro");
+//                            } else {
+//                                AnalyticsManager.logUpgrade(AnalyticsManager.UpgradeType.UPGRADE);
+//                                ((SettingsActivity) getActivity()).purchasePremiumUpgrade();
+//                            }
+//                        });
+//                return true;
+//            });
+//        }
 
         final Preference viewBlacklist = findPreference("pref_blacklist_view");
         if (viewBlacklist != null) {
@@ -369,23 +369,23 @@ public class SettingsFragment extends PreferenceFragment {
             });
         }
 
-        final Preference restorePurchases = findPreference("pref_restore_purchases");
-        if (ShuttleUtils.isAmazonBuild() || ShuttleUtils.isUpgraded()) {
-            PreferenceGroup preferenceGroup = (PreferenceGroup) findPreference("support_group");
-            if (preferenceGroup != null) {
-                preferenceGroup.removePreference(restorePurchases);
-            }
-        } else if (restorePurchases != null) {
-            restorePurchases.setOnPreferenceClickListener(preference -> {
-                ((SettingsActivity) getActivity()).restorePurchases();
-                return true;
-            });
-        }
+//        final Preference restorePurchases = findPreference("pref_restore_purchases");
+//        if (ShuttleUtils.isAmazonBuild() || ShuttleUtils.isUpgraded()) {
+//            PreferenceGroup preferenceGroup = (PreferenceGroup) findPreference("support_group");
+//            if (preferenceGroup != null) {
+//                preferenceGroup.removePreference(restorePurchases);
+//            }
+//        } else if (restorePurchases != null) {
+//            restorePurchases.setOnPreferenceClickListener(preference -> {
+//                ((SettingsActivity) getActivity()).restorePurchases();
+//                return true;
+//            });
+//        }
 
-        final Preference versionPreference = findPreference("pref_version");
-        if (versionPreference != null) {
-            versionPreference.setSummary("Shuttle Music Player " + BuildConfig.VERSION_NAME + (ShuttleUtils.isUpgraded() ? " (Upgraded)" : " (Free)"));
-        }
+//        final Preference versionPreference = findPreference("pref_version");
+//        if (versionPreference != null) {
+//            versionPreference.setSummary("Shuttle Music Player " + BuildConfig.VERSION_NAME + (ShuttleUtils.isUpgraded() ? " (Upgraded)" : " (Free)"));
+//        }
 
         final Preference faqPreference = findPreference("pref_faq");
         if (faqPreference != null) {
@@ -409,9 +409,24 @@ public class SettingsFragment extends PreferenceFragment {
         final Preference ratePreference = findPreference("pref_rate");
         if (ratePreference != null) {
             ratePreference.setOnPreferenceClickListener(preference -> {
-                final String appPackageName = getActivity().getPackageName();
-                ShuttleUtils.openShuttleLink(getActivity(), appPackageName);
+                String str = "https://play.google.com/store/apps/details?id=com.mymusicplayer.reproductordemusica";
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(str)));
                 SettingsManager.getInstance().setHasRated();
+                return true;
+            });
+        }
+
+        final Preference privacyPreference = findPreference("privacy_policy");
+        if (privacyPreference != null) {
+            privacyPreference.setOnPreferenceClickListener(preference -> {
+                ((SettingsActivity)getActivity()).openPrivacyPolice();
+                return true;
+            });
+        }
+        final Preference licencesPreference = findPreference("licences");
+        if (licencesPreference != null) {
+            licencesPreference.setOnPreferenceClickListener(preference -> {
+             ((SettingsActivity)getActivity()).openLicenses();
                 return true;
             });
         }
@@ -555,10 +570,10 @@ public class SettingsFragment extends PreferenceFragment {
             if (aboutPreference != null) {
                 aboutPreference.setIcon(DrawableUtils.getColoredAccentDrawable(getActivity(), getResources().getDrawable(R.drawable.ic_settings_about), false));
             }
-            Preference upgradePreference = findPreference("pref_upgrade");
-            if (upgradePreference != null) {
-                upgradePreference.setIcon(DrawableUtils.getColoredAccentDrawable(getActivity(), getResources().getDrawable(R.drawable.ic_settings_purchase), false));
-            }
+//            Preference upgradePreference = findPreference("pref_upgrade");
+//            if (upgradePreference != null) {
+//                upgradePreference.setIcon(DrawableUtils.getColoredAccentDrawable(getActivity(), getResources().getDrawable(R.drawable.ic_settings_purchase), false));
+//            }
         }
     }
 

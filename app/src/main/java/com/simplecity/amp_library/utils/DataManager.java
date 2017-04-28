@@ -2,7 +2,7 @@ package com.simplecity.amp_library.utils;
 
 import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
-import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.Crashlytics;
 import com.jakewharton.rxrelay.BehaviorRelay;
 import com.simplecity.amp_library.ShuttleApplication;
 import com.simplecity.amp_library.model.Album;
@@ -111,7 +111,8 @@ public class DataManager {
                 }
 
                 return result;
-            }).subscribe(songsRelay, error -> Crashlytics.log("getSongsRelay error: " + error.getMessage()));
+            }).subscribe(songsRelay);
+                    //.subscribe(songsRelay, error -> Crashlytics.log("getSongsRelay error: " + error.getMessage()));
         }
         return songsRelay.subscribeOn(Schedulers.io()).map(ArrayList::new);
     }
@@ -138,8 +139,8 @@ public class DataManager {
     public Observable<List<Album>> getAlbumsRelay() {
         if (albumsSubscription == null || albumsSubscription.isUnsubscribed()) {
             albumsSubscription = getSongsRelay()
-                    .flatMap(songs -> Observable.just(Operators.songsToAlbums(songs)))
-                    .subscribe(albumsRelay, error -> Crashlytics.log("getAlbumsRelay error: " + error.getMessage()));
+                    .flatMap(songs -> Observable.just(Operators.songsToAlbums(songs))).subscribe(albumsRelay);
+                 //   .subscribe(albumsRelay, error -> Crashlytics.log("getAlbumsRelay error: " + error.getMessage()));
         }
         return albumsRelay.subscribeOn(Schedulers.io()).map(ArrayList::new);
     }
@@ -166,8 +167,8 @@ public class DataManager {
     public Observable<List<AlbumArtist>> getAlbumArtistsRelay() {
         if (albumArtistsSubscription == null || albumArtistsSubscription.isUnsubscribed()) {
             albumArtistsSubscription = getAlbumsRelay()
-                    .flatMap(albums -> Observable.just(Operators.albumsToAlbumArtists(albums)))
-                    .subscribe(albumArtistsRelay,error -> Crashlytics.log("getAlbumArtistsRelay error: " + error.getMessage()));
+                    .flatMap(albums -> Observable.just(Operators.albumsToAlbumArtists(albums))).subscribe(albumArtistsRelay);
+                   // .subscribe(albumArtistsRelay,error -> Crashlytics.log("getAlbumArtistsRelay error: " + error.getMessage()));
         }
         return albumArtistsRelay.subscribeOn(Schedulers.io()).map(ArrayList::new);
     }
@@ -200,8 +201,8 @@ public class DataManager {
                                         genre.numSongs = songs.size();
                                         return genre;
                                     }))
-                            .toList())
-                    .subscribe(genresRelay, error -> Crashlytics.log("getGenresRelay error: " + error.getMessage()));
+                            .toList()).subscribe(genresRelay);
+                   // .subscribe(genresRelay, error -> Crashlytics.log("getGenresRelay error: " + error.getMessage()));
         }
         return genresRelay.subscribeOn(Schedulers.io()).map(ArrayList::new);
     }
@@ -226,8 +227,8 @@ public class DataManager {
      */
     public Observable<List<Playlist>> getPlaylistsRelay() {
         if (playlistsSubscription == null || playlistsSubscription.isUnsubscribed()) {
-            playlistsSubscription = SqlBriteUtils.createContinuousQuery(ShuttleApplication.getInstance(), Playlist::new, Playlist.getQuery())
-                    .subscribe(playlistsRelay, error -> Crashlytics.log("getPlaylistRelay error: " + error.getMessage()));
+            playlistsSubscription = SqlBriteUtils.createContinuousQuery(ShuttleApplication.getInstance(), Playlist::new, Playlist.getQuery()).subscribe(playlistsRelay);
+                  //  .subscribe(playlistsRelay, error -> Crashlytics.log("getPlaylistRelay error: " + error.getMessage()));
         }
         return playlistsRelay.subscribeOn(Schedulers.io()).map(ArrayList::new);
     }
@@ -262,8 +263,8 @@ public class DataManager {
         if (blacklistSubscription == null || blacklistSubscription.isUnsubscribed()) {
             blacklistSubscription = getBlacklistDatabase()
                     .createQuery(BlacklistDbOpenHelper.TABLE_SONGS, "SELECT * FROM " + BlacklistDbOpenHelper.TABLE_SONGS)
-                    .mapToList(BlacklistedSong::new)
-                    .subscribe(blacklistRelay, error -> Crashlytics.log("getBlacklistRelay error: " + error.getMessage()));
+                    .mapToList(BlacklistedSong::new).subscribe(blacklistRelay);
+                   // .subscribe(blacklistRelay, error -> Crashlytics.log("getBlacklistRelay error: " + error.getMessage()));
         }
         return blacklistRelay.subscribeOn(Schedulers.io()).map(ArrayList::new);
     }
@@ -286,8 +287,8 @@ public class DataManager {
         if (whitelistSubscription == null || whitelistSubscription.isUnsubscribed()) {
             whitelistSubscription = getWhitelistDatabase()
                     .createQuery(WhitelistDbOpenHelper.TABLE_FOLDERS, "SELECT * FROM " + WhitelistDbOpenHelper.TABLE_FOLDERS)
-                    .mapToList(WhitelistFolder::new)
-                    .subscribe(whitelistRelay, error -> Crashlytics.log("getWhitelistRelay error: " + error.getMessage()));
+                    .mapToList(WhitelistFolder::new).subscribe(whitelistRelay);
+                   // .subscribe(whitelistRelay, error -> Crashlytics.log("getWhitelistRelay error: " + error.getMessage()));
         }
         return whitelistRelay.subscribeOn(Schedulers.io()).map(ArrayList::new);
     }

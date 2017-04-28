@@ -55,8 +55,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
-import com.crashlytics.android.Crashlytics;
-import com.crashlytics.android.core.CrashlyticsCore;
+//import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.core.CrashlyticsCore;
 import com.google.android.gms.cast.ApplicationMetadata;
 import com.google.android.gms.cast.MediaInfo;
 import com.google.android.gms.cast.MediaMetadata;
@@ -1649,14 +1649,14 @@ public class MusicService extends Service {
                 player.setNextDataSource(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI + "/" + nextSong.id);
             } catch (Exception e) {
                 Log.e(TAG, "Error: " + e.getMessage());
-                CrashlyticsCore.getInstance().log("setNextTrack() with id failed. error: " + e.getLocalizedMessage());
+                //CrashlyticsCore.getInstance().log("setNextTrack() with id failed. error: " + e.getLocalizedMessage());
             }
         } else {
             try {
                 player.setNextDataSource(null);
             } catch (Exception e) {
                 Log.e(TAG, "Error: " + e.getMessage());
-                CrashlyticsCore.getInstance().log("setNextTrack() failed with null id. error: " + e.getLocalizedMessage());
+             //   CrashlyticsCore.getInstance().log("setNextTrack() failed with null id. error: " + e.getLocalizedMessage());
             }
         }
     }
@@ -2886,7 +2886,7 @@ public class MusicService extends Service {
             mNotificationStateHandler.sendEmptyMessage(NotificationStateHandler.START_FOREGROUND);
             startForeground(id, notification);
         } catch (NullPointerException e) {
-            Crashlytics.log("startForegroundImpl error: " + e.getMessage());
+            //Crashlytics.log("startForegroundImpl error: " + e.getMessage());
         }
     }
 

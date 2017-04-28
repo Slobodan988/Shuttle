@@ -3,7 +3,9 @@ package com.simplecity.amp_library.ui.activities;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.ActivityManager;
+import android.app.Dialog;
 import android.app.SearchManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -41,20 +43,23 @@ import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.vending.billing.utils.IabHelper;
 import com.android.vending.billing.utils.IabResult;
 import com.android.vending.billing.utils.Purchase;
-import com.crashlytics.android.Crashlytics;
-import com.crashlytics.android.core.CrashlyticsCore;
+//import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.core.CrashlyticsCore;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.simplecity.amp_library.IabManager;
 import com.simplecity.amp_library.R;
 import com.simplecity.amp_library.ShuttleApplication;
 import com.simplecity.amp_library.constants.Config;
+import com.simplecity.amp_library.helper.InterstitialHelper;
 import com.simplecity.amp_library.interfaces.BackPressListener;
 import com.simplecity.amp_library.model.Album;
 import com.simplecity.amp_library.model.AlbumArtist;
@@ -177,6 +182,36 @@ public class MainActivity extends BaseCastActivity implements
         handleIntent(intent);
     }
 
+
+    ///////////////////////////// NASE REKLAME  ///////////////////
+    Button continueButton;
+    InterstitialHelper interstitialHelper;
+
+
+    int vremeCekanjaUlaznaReklama = 5000;
+
+    int deoZaPunjenjaProgresBara = 500;
+    int trenutniProgress = 0;
+    ProgressBar progressBar;
+    private Dialog mDialog;
+
+    int countEntryNumber =0;
+
+    ////////////////////////////////////////////
+
+
+    @Override
+    protected void onStart() {
+        interstitialHelper.onStart(this);
+        super.onStart();
+    }
+
+    @Override
+    protected void onDestroy() {
+        interstitialHelper.onDestroy();
+        super.onDestroy();
+    }
+
     @SuppressLint("NewApi")
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -208,6 +243,16 @@ public class MainActivity extends BaseCastActivity implements
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+
+
+
+        /////////////////////////////////nase reklame //////////////////
+
+       // ((AppClass) getApplication()).FlurryActCreated(this);
+        interstitialHelper = new InterstitialHelper(this, true);
+        StartLoader();
+
+        ///////////////////////////////////////////////////////////////
 
         mIsSlidingEnabled = getResources().getBoolean(R.bool.isSlidingEnabled);
 
@@ -419,6 +464,7 @@ public class MainActivity extends BaseCastActivity implements
 
     @Override
     protected void onPause() {
+        interstitialHelper.onPause(this);
         super.onPause();
         LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
     }
@@ -426,6 +472,7 @@ public class MainActivity extends BaseCastActivity implements
     @Override
     public void onResume() {
 
+        interstitialHelper.onResume(this);
         super.onResume();
 
         DialogUtils.showUpgradeNagDialog(this, (materialDialog, dialogAction) -> {
@@ -896,7 +943,7 @@ public class MainActivity extends BaseCastActivity implements
                             getSupportFragmentManager().popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                         } catch (IllegalStateException e) {
                             Log.e(TAG, "Error popping backstack: " + e);
-                            CrashlyticsCore.getInstance().logException(e);
+                            //CrashlyticsCore.getInstance().logException(e);
                         }
                     }
                     mTitle = getString(R.string.library_title);
@@ -909,16 +956,16 @@ public class MainActivity extends BaseCastActivity implements
                 if (ShuttleUtils.isUpgraded()) {
                     //Folder
                     swapFragments(FolderFragment.newInstance(null), true);
-                } else {
-                    DialogUtils.showUpgradeDialog(this, (materialDialog, dialogAction) -> {
-                        if (ShuttleUtils.isAmazonBuild()) {
-                            ShuttleUtils.openShuttleLink(MainActivity.this, "com.simplecity.amp_pro");
-                        } else {
-                            AnalyticsManager.logUpgrade(AnalyticsManager.UpgradeType.FOLDER);
-                            purchasePremiumUpgrade();
-                        }
-                    });
-                }
+                } //else {
+//                    DialogUtils.showUpgradeDialog(this, (materialDialog, dialogAction) -> {
+//                        if (ShuttleUtils.isAmazonBuild()) {
+//                            ShuttleUtils.openShuttleLink(MainActivity.this, "com.simplecity.amp_pro");
+//                        } else {
+//                            AnalyticsManager.logUpgrade(AnalyticsManager.UpgradeType.FOLDER);
+//                            purchasePremiumUpgrade();
+//                        }
+//                    });
+//                }
                 break;
 
             case DrawerGroupItem.Type.SETTINGS:
@@ -1040,7 +1087,7 @@ public class MainActivity extends BaseCastActivity implements
                     mPurchaseFinishedListener, "");
         } catch (IllegalStateException | NullPointerException e) {
             Toast.makeText(this, R.string.toast_purchase_failed, Toast.LENGTH_SHORT).show();
-            Crashlytics.log("purchasePremiumUpgrade failed.. " + e.getMessage());
+            //Crashlytics.log("purchasePremiumUpgrade failed.. " + e.getMessage());
         }
     }
 
@@ -1178,4 +1225,137 @@ public class MainActivity extends BaseCastActivity implements
     protected String screenName() {
         return TAG;
     }
+
+    private void StartLoader()
+    {
+
+        mDialog = new Dialog(MainActivity.this, android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
+        mDialog.setContentView(R.layout.splash_screen_with_loader);
+
+        progressBar = (ProgressBar) mDialog.findViewById(R.id.progressBar2);
+
+
+        continueButton = (Button) mDialog.findViewById(R.id.continue_button);
+
+
+        mDialog.show();
+        puniProgressBar();
+        //pali view za loading
+
+        continueButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Handler hn = new Handler();
+                hn.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        //gasi view za loading\
+                        Log.i("continue", "uso ovde");
+                        mDialog.dismiss();
+                    }
+                }, 1200);
+
+                pozvanaReklamaUlaz = true;
+                CallInterstitialForSpecificLoaction(MainActivity.this, InterstitialHelper.INTERSTITIAL_ON_ENTRY);
+
+            }
+        });
+
+        progressBar.setMax(vremeCekanjaUlaznaReklama);
+        progressBar.setProgress(trenutniProgress);
+
+        mDialog.setCancelable(false);
+
+        //pali view za loading
+        loadrRunnable = new Runnable() {
+            @Override
+            public void run() {
+
+                //upali continue button
+                //ugasi progress
+                progressBar.setVisibility(View.INVISIBLE);
+                continueButton.setVisibility(View.VISIBLE);
+            }
+        };
+
+        loaderHandler = new Handler();
+        loaderHandler.postDelayed(loadrRunnable, 6000);
+
+
+
+    }
+
+    Handler hnZaPunjenjeProgresBara = null;
+    Runnable runnableZaPunjenjeProgressBara = null;
+
+    public void otkazihandlerZaPunjenjeProgressBara()
+    {
+        try {
+            if (hnZaPunjenjeProgresBara != null && runnableZaPunjenjeProgressBara != null) {
+                hnZaPunjenjeProgresBara.removeCallbacks(runnableZaPunjenjeProgressBara);
+            }
+        }
+        catch(Exception e)
+        {
+
+        }
+    }
+
+    public void puniProgressBar()
+    {
+
+        progressBar.setProgress(trenutniProgress);
+
+        trenutniProgress += deoZaPunjenjaProgresBara;
+
+        Log.i("test-progress", Integer.toString(trenutniProgress));
+
+        otkazihandlerZaPunjenjeProgressBara();
+
+        runnableZaPunjenjeProgressBara = new Runnable() {
+            @Override
+            public void run() {
+                puniProgressBar();
+            }
+        };
+
+        hnZaPunjenjeProgresBara = new Handler();
+
+        hnZaPunjenjeProgresBara.postDelayed(runnableZaPunjenjeProgressBara, deoZaPunjenjaProgresBara);
+
+    }
+
+    boolean pozvanaReklamaUlaz = false;
+
+    Handler loaderHandler = null;
+    Runnable loadrRunnable = null;
+
+//    private void StopLoader()
+//    {
+//        //gasi view za loading
+//
+//        mDialog.dismiss();
+//
+//        if(loaderHandler!=null && loadrRunnable!=null)
+//        {
+//            loaderHandler.removeCallbacks(loadrRunnable);
+//        }
+//        loaderHandler = null;
+//        loadrRunnable = null;
+//    }
+
+    public void CallInterstitialForSpecificLoaction(Activity act, String interstitialLocation)
+    {
+        interstitialHelper.CallInterstitial(act, interstitialLocation);
+    }
+
+    public void CallEntryInterstitialOnSecondResume()
+    {
+
+        CallInterstitialForSpecificLoaction(this, InterstitialHelper.INTERSTITIAL_ON_ENTRY);
+
+    }
+
+
 }

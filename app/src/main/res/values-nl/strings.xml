@@ -738,4 +738,8 @@ map "</item>
     <string name="shortcut_playlist_disabled">Afspeellijst niet beschikbaar</string>
     <!-- Displayed in list of songs for multi-disc album. E.g "Disc 1)-->
     <string name="disc_number_label">CD <xliff:g id="number">%d</xliff:g></string>
+
+    <string name="continue_label">Doorgaan</string>
+    <string name="privacy_policy">Privacy policy</string>
+    <string name="licences">Licences</string>
 </resources>

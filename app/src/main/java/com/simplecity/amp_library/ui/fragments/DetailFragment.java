@@ -45,7 +45,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.crashlytics.android.core.CrashlyticsCore;
+//import com.crashlytics.android.core.CrashlyticsCore;
 import com.simplecity.amp_library.R;
 import com.simplecity.amp_library.glide.utils.AlwaysCrossFade;
 import com.simplecity.amp_library.glide.utils.GlideUtils;
@@ -281,7 +281,7 @@ public class DetailFragment extends BaseFragment implements
                         try {
                                 MediaStore.Audio.Playlists.Members.moveItem(getActivity().getContentResolver(), playlist.id, from, to);
                         } catch (IllegalArgumentException e) {
-                            CrashlyticsCore.getInstance().log(String.format("Failed to move playlist item from %s to %s. Adapter count: %s. Error:%s", from, to, adapter.getItemCount(), e.getMessage()));
+                            //CrashlyticsCore.getInstance().log(String.format("Failed to move playlist item from %s to %s. Adapter count: %s. Error:%s", from, to, adapter.getItemCount(), e.getMessage()));
                         }
                     },
                     null

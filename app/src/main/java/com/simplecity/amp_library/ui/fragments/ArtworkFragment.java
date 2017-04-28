@@ -17,7 +17,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
-import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.Crashlytics;
 import com.jp.wasabeef.glide.transformations.BlurTransformation;
 import com.simplecity.amp_library.R;
 import com.simplecity.amp_library.glide.utils.GlideUtils;
@@ -115,7 +115,7 @@ public class ArtworkFragment extends BaseFragment {
             try {
                 builder.into(imageView);
             } catch (IllegalArgumentException e) {
-                Crashlytics.log("ArtworkFragment load normal image failed: " + e.getMessage());
+                //Crashlytics.log("ArtworkFragment load normal image failed: " + e.getMessage());
             }
 
             if (!SettingsManager.getInstance().cropArtwork()) {
@@ -127,7 +127,7 @@ public class ArtworkFragment extends BaseFragment {
                             .override(100, 100)
                             .into(new Target(imageView));
                 } catch (IllegalArgumentException e) {
-                    Crashlytics.log("ArtworkFragment load blur image failed: " + e.getMessage());
+                   // Crashlytics.log("ArtworkFragment load blur image failed: " + e.getMessage());
                 }
             }
         }

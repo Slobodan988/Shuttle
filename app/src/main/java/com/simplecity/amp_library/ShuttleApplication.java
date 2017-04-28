@@ -15,16 +15,17 @@ import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.multidex.MultiDex;
+import android.support.multidex.MultiDexApplication;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
-import com.bumptech.glide.Glide;
-import com.crashlytics.android.Crashlytics;
-import com.crashlytics.android.answers.Answers;
-import com.crashlytics.android.core.CrashlyticsCore;
+//import com.bumptech.glide.Glide;
+//import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.answers.Answers;
+//import com.crashlytics.android.core.CrashlyticsCore;
 import com.google.android.libraries.cast.companionlibrary.cast.CastConfiguration;
 import com.google.android.libraries.cast.companionlibrary.cast.VideoCastManager;
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -38,8 +39,8 @@ import com.simplecity.amp_library.sql.providers.PlayCountTable;
 import com.simplecity.amp_library.utils.AnalyticsManager;
 import com.simplecity.amp_library.utils.SettingsManager;
 import com.simplecity.amp_library.utils.ShuttleUtils;
-import com.squareup.leakcanary.LeakCanary;
-import com.squareup.leakcanary.RefWatcher;
+//import com.squareup.leakcanary.LeakCanary;
+//import com.squareup.leakcanary.RefWatcher;
 
 import org.jaudiotagger.tag.TagOptionSingleton;
 
@@ -51,11 +52,11 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import io.fabric.sdk.android.Fabric;
+//import io.fabric.sdk.android.Fabric;
 import rx.Observable;
 import rx.schedulers.Schedulers;
 
-public class ShuttleApplication extends Application {
+public class ShuttleApplication extends MultiDexApplication {
 
     private static ShuttleApplication sInstance;
 
@@ -69,7 +70,7 @@ public class ShuttleApplication extends Application {
 
     public static final double VOLUME_INCREMENT = 0.05;
 
-    private RefWatcher refWatcher;
+   // private RefWatcher refWatcher;
 
     public HashMap<String, UserSelectedArtwork> userSelectedArtwork = new HashMap<>();
 
@@ -89,7 +90,7 @@ public class ShuttleApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        refWatcher = LeakCanary.install(this);
+        //refWatcher = LeakCanary.install(this);
         sInstance = this;
 
         if (BuildConfig.DEBUG) {
@@ -98,8 +99,8 @@ public class ShuttleApplication extends Application {
         }
 
         //Crashlytics
-        CrashlyticsCore core = new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build();
-        Fabric.with(this, new Crashlytics.Builder().core(core).answers(new Answers()).build(), new Crashlytics());
+//        CrashlyticsCore core = new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build();
+//        Fabric.with(this, new Crashlytics.Builder().core(core).answers(new Answers()).build(), new Crashlytics());
 
         //Firebase Analytics
         FirebaseAnalytics.getInstance(this);
@@ -176,15 +177,15 @@ public class ShuttleApplication extends Application {
         new Handler().postDelayed(this::deleteOldResources, 10000);
     }
 
-    public RefWatcher getRefWatcher() {
-        return this.refWatcher;
-    }
+//    public RefWatcher getRefWatcher() {
+//        return this.refWatcher;
+//    }
 
     @Override
     public void onLowMemory() {
         super.onLowMemory();
 
-        Glide.get(this).clearMemory();
+       // Glide.get(this).clearMemory();
     }
 
     public static String getVersion() {

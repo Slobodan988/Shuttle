@@ -1,30 +1,29 @@
 buildscript {
     repositories {
         jcenter()
-        maven { url 'https://maven.fabric.io/public' }
+       // maven { url 'https://maven.fabric.io/public' }
         maven { url "https://jitpack.io" }
     }
     dependencies {
         classpath gradlePlugins.android
         classpath gradlePlugins.dexcount
-        classpath gradlePlugins.fabric
+       // classpath gradlePlugins.fabric
     }
 }
 
 apply plugin: 'com.android.application'
 apply plugin: 'com.getkeepsafe.dexcount'
-apply plugin: 'io.fabric'
+//apply plugin: 'io.fabric'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.github.triplet.play'
 
 repositories {
-    maven { url 'https://maven.fabric.io/public' }
+   // maven { url 'https://maven.fabric.io/public' }
     maven { url "https://jitpack.io" }
     maven { name 'glide-snapshot'; url 'http://oss.sonatype.org/content/repositories/snapshots' }
 }
 
-//For some reason this needs to be placed below the dependencies in order for gms services to work..
-apply plugin: 'com.google.gms.google-services'
+
 
 @Nullable
 def getProperties(String fileName) {
@@ -44,6 +43,8 @@ android {
 
     dexOptions {
         jumboMode = true
+        preDexLibraries false
+        javaMaxHeapSize "4g"
     }
 
     compileSdkVersion versions.compileSdk
@@ -53,48 +54,52 @@ android {
         minSdkVersion versions.minSdk
         targetSdkVersion versions.targetSdk
 
-        versionName versions.name
-        versionCode gitCommitCount() + 3200 // Add 3200 to account for moving to github and resetting commit count.
 
-        resConfigs "en", "zh-rCN", "ja", "fr", "de", "ko", "it", "ru", "nl", "tr", "pl", "ro", "hu", "uk", "bg-rBG", "en-rGB", "vi", "pt-rBR", "es", "en-rNZ", "zh-rTW", "es-rES", "ca", "hr", "en-rAU", "eu-rES"
+//        versionName versions.name
+//        versionCode gitCommitCount() + 3200 // Add 3200 to account for moving to github and resetting commit count.
+
+        versionName "1.0"
+        versionCode 1
+        multiDexEnabled = true
+
+      //  resConfigs "en", "zh-rCN", "ja", "fr", "de", "ko", "it", "ru", "nl", "tr", "pl", "ro", "hu", "uk", "bg-rBG", "en-rGB", "vi", "pt-rBR", "es", "en-rNZ", "zh-rTW", "es-rES", "ca", "hr", "en-rAU", "eu-rES"
 
         renderscriptTargetApi 23
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    //    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
-        buildConfigField "boolean", "MULTIDEX_ENABLED", "false"
+        buildConfigField "boolean", "MULTIDEX_ENABLED", "true"
 
         // This API key is provided for convenience. Please go to https://www.last.fm/api/account/create and create your own.
         buildConfigField("String", "LASTFM_API_KEY", "\"${getProperty(getProperties('../public.properties'), 'LASTFM_API_KEY')}\"")
 
-        manifestPlaceholders = [CRASHLYTICS_API_KEY: ""]
+//        manifestPlaceholders = [CRASHLYTICS_API_KEY: ""]
     }
 
-    signingConfigs {
-        release {
-            Properties properties = getProperties('../keystore.properties')
-            storeFile file(getProperty(properties, 'store'))
-            keyAlias getProperty(properties, 'alias')
-            storePassword getProperty(properties, 'storePass')
-            keyPassword getProperty(properties, 'pass')
-        }
-    }
-
+//    signingConfigs {
+//        release {
+//            Properties properties = getProperties('../keystore.properties')
+//            storeFile file(getProperty(properties, 'store'))
+//            keyAlias getProperty(properties, 'alias')
+//            storePassword getProperty(properties, 'storePass')
+//            keyPassword getProperty(properties, 'pass')
+//        }
+//    }
     buildTypes {
 
         debug {
             applicationIdSuffix ".debug"
-            ext.enableCrashlytics = false
+           // ext.enableCrashlytics = false
         }
 
         release {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), file('proguard-project.txt')
-            signingConfig signingConfigs.release
+          //  signingConfig signingConfigs.release
 
             buildConfigField("String", "LASTFM_API_KEY", "\"${getProperty(getProperties('../private.properties'), 'LASTFM_API_KEY')}\"")
-            manifestPlaceholders = [CRASHLYTICS_API_KEY: "${getProperty(getProperties('../private.properties'), 'CRASHLYTICS_API_KEY')}"]
+          //  manifestPlaceholders = [CRASHLYTICS_API_KEY: "${getProperty(getProperties('../private.properties'), 'CRASHLYTICS_API_KEY')}"]
         }
 
         applicationVariants.all { variant ->
@@ -102,7 +107,7 @@ android {
             if (variant.buildType.name.contains('release')) {
                 variant.outputs.each { output ->
                     def apk = output.outputFile;
-                    def newName = "shuttle-" + variant.baseName.replace("-release", "") + "-v" + defaultConfig.versionName + ".apk";
+                    def newName = "My Music Player-" + variant.baseName.replace("-release", "") + "-v" + defaultConfig.versionName + ".apk";
                     output.outputFile = new File(apk.parentFile, newName);
                 }
 
@@ -175,12 +180,13 @@ android {
 
         paid.applicationId "com.simplecity.amp_pro"
 
-        free.applicationId "another.music.player"
+        free.applicationId "com.simplecity.amp_pro"
 
         amazonPaid.applicationId "com.simplecity.amp_pro"
 
         amazonFree.applicationId "another.music.player"
     }
+
 
     sourceSets {
         main.aidl.srcDirs = ['src/main/java']
@@ -214,6 +220,14 @@ android {
 dependencies {
     compile fileTree(include: '*.jar', dir: 'libs')
 
+    compile files('libs/chartboost.jar')
+
+    compile 'com.flurry.android:analytics:6.4.2'
+    compile 'com.google.android.gms:play-services-ads:10.0.0'
+    compile 'com.facebook.android:audience-network-sdk:4.21.1'
+
+
+
     // //////////////////////////////////////////////////////////////////////////
     // Google libs
     // /////////////////////////////////////////////////////////////////////////
@@ -227,6 +241,7 @@ dependencies {
     compile libs.firebaseCore
     compile libs.constraintLayout
 
+
     // //////////////////////////////////////////////////////////////////////////
     // Square libs
     // /////////////////////////////////////////////////////////////////////////
@@ -237,8 +252,8 @@ dependencies {
     compile libs.retrofitGson
     compile libs.sqlBrite
     debugCompile libs.haha
-    debugCompile libs.leakCanaryDebug
-    releaseCompile libs.leakCanaryRel
+   // debugCompile libs.leakCanaryDebug
+ //   releaseCompile libs.leakCanaryRel
 
     // //////////////////////////////////////////////////////////////////////////
     // External libs
@@ -263,9 +278,9 @@ dependencies {
     compile libs.rxReceivers
     compile libs.slidingUpPanel
     compile libs.streams
-    compile(libs.crashlytics) {
-        transitive = true;
-    }
+//    compile(libs.crashlytics) {
+//        transitive = true;
+//    }
     compile(libs.materialDialogs) {
         transitive = true;
     }
@@ -370,3 +385,5 @@ play {
 //    }
 //}
 //preBuild.dependsOn configureRetrolambda
+//For some reason this needs to be placed below the dependencies in order for gms services to work..
+apply plugin: 'com.google.gms.google-services'

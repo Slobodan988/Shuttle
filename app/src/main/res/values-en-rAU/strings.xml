@@ -265,6 +265,8 @@
     <!-- ## Equalizer ## -->
     <!-- Menu item to open the equalizer -->
     <string name="equalizer">Equaliser</string>
+    <string name="privacy_policy">Privacy policy</string>
+    <string name="licences">Licences</string>
     <!-- Displayed at the top of the preset selection screen in the equalizer -->
     <!-- Bass boost strength -->
     <!-- Virtualizer strength -->

@@ -3,9 +3,9 @@ package com.simplecity.amp_library.utils;
 import android.app.Activity;
 import android.os.Bundle;
 
-import com.crashlytics.android.answers.Answers;
-import com.crashlytics.android.answers.CustomEvent;
-import com.crashlytics.android.core.CrashlyticsCore;
+//import com.crashlytics.android.answers.Answers;
+//import com.crashlytics.android.answers.CustomEvent;
+//import com.crashlytics.android.core.CrashlyticsCore;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.simplecity.amp_library.BuildConfig;
 import com.simplecity.amp_library.ShuttleApplication;
@@ -30,21 +30,21 @@ public class AnalyticsManager {
         String ACCENT = "accent";
     }
 
-    public static void logColorPicked(String colorType, int color) {
-        if (!analyticsEnabled()) {
-            return;
-        }
-        switch (colorType) {
-            case ColorType.PRIMARY:
-                Answers.getInstance().logCustom(new CustomEvent("Primary Color Changed")
-                        .putCustomAttribute("Color", String.format("#%06X", (0xFFFFFF & color))));
-                break;
-            case ColorType.ACCENT:
-                Answers.getInstance().logCustom(new CustomEvent("Accent Color Changed")
-                        .putCustomAttribute("Color", String.format("#%06X", (0xFFFFFF & color))));
-                break;
-        }
-    }
+//    public static void logColorPicked(String colorType, int color) {
+//        if (!analyticsEnabled()) {
+//            return;
+//        }
+//        switch (colorType) {
+//            case ColorType.PRIMARY:
+//                Answers.getInstance().logCustom(new CustomEvent("Primary Color Changed")
+//                        .putCustomAttribute("Color", String.format("#%06X", (0xFFFFFF & color))));
+//                break;
+//            case ColorType.ACCENT:
+//                Answers.getInstance().logCustom(new CustomEvent("Accent Color Changed")
+//                        .putCustomAttribute("Color", String.format("#%06X", (0xFFFFFF & color))));
+//                break;
+//        }
+//    }
 
     public static void logChangelogViewed() {
         if (!analyticsEnabled()) {
@@ -57,21 +57,21 @@ public class AnalyticsManager {
 
         FirebaseAnalytics.getInstance(ShuttleApplication.getInstance())
                 .logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
-        Answers.getInstance().logCustom(new CustomEvent("Changelog Viewed"));
+      //  Answers.getInstance().logCustom(new CustomEvent("Changelog Viewed"));
     }
 
     public static void logTabVisibilityChanged(boolean visible, String title) {
         if (!analyticsEnabled()) {
             return;
         }
-
-        if (visible) {
-            Answers.getInstance().logCustom(new CustomEvent("Tab Enabled")
-                    .putCustomAttribute("Tab", title));
-        } else {
-            Answers.getInstance().logCustom(new CustomEvent("Tab Disabled")
-                    .putCustomAttribute("Tab", title));
-        }
+//
+//        if (visible) {
+//         //   Answers.getInstance().logCustom(new CustomEvent("Tab Enabled")
+//                    .putCustomAttribute("Tab", title));
+//        } else {
+//            Answers.getInstance().logCustom(new CustomEvent("Tab Disabled")
+//                    .putCustomAttribute("Tab", title));
+//        }
     }
 
     public static void logUpgrade(@UpgradeType String upgradeType) {
@@ -94,7 +94,7 @@ public class AnalyticsManager {
             return;
         }
 
-        CrashlyticsCore.getInstance().log(String.format("Screen: %s", name));
+        //CrashlyticsCore.getInstance().log(String.format("Screen: %s", name));
         FirebaseAnalytics.getInstance(ShuttleApplication.getInstance()).setCurrentScreen(activity, name, null);
     }
 

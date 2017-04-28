@@ -177,41 +177,41 @@ public class DialogUtils {
             }
         }
 
-        getBuilder(fragment.getActivity())
-                .title(fragment.getActivity().getString(R.string.color_pick))
-                .negativeText(R.string.cancel)
-                .onNegative((dialog, which) -> dialog.dismiss())
-                .positiveText(R.string.button_done)
-                .onPositive((dialog, which) -> {
-                    int color = selectedColor;
-                    for (AdaptableItem item : colorAdapter.items) {
-                        if (((ColorView) item).selected) {
-                            color = ((ColorView) item).color;
-                            break;
-                        }
-                    }
-                    listener.colorSelected(color);
-                    dialog.dismiss();
-                })
-                .neutralText(neutralTextResId)
-                .autoDismiss(false)
-                .onNeutral((dialog, which) -> {
-                    if (ShuttleUtils.isUpgraded()) {
-                        showCustomColorPickerDialog(fragment.getActivity(), selectedColor, listener);
-                        dialog.dismiss();
-                    } else {
-                        showUpgradeDialog(fragment.getActivity(), (upgradeDialog, which1) -> {
-                            if (ShuttleUtils.isAmazonBuild()) {
-                                ShuttleUtils.openShuttleLink(fragment.getActivity(), "com.simplecity.amp_pro");
-                            } else {
-                                AnalyticsManager.logUpgrade(AnalyticsManager.UpgradeType.COLORS);
-                                ((SettingsActivity) fragment.getActivity()).purchasePremiumUpgrade();
-                            }
-                        });
-                    }
-                })
-                .customView(customView, false)
-                .show();
+//        getBuilder(fragment.getActivity())
+//                .title(fragment.getActivity().getString(R.string.color_pick))
+//                .negativeText(R.string.cancel)
+//                .onNegative((dialog, which) -> dialog.dismiss())
+//                .positiveText(R.string.button_done)
+//                .onPositive((dialog, which) -> {
+//                    int color = selectedColor;
+//                    for (AdaptableItem item : colorAdapter.items) {
+//                        if (((ColorView) item).selected) {
+//                            color = ((ColorView) item).color;
+//                            break;
+//                        }
+//                    }
+//                    listener.colorSelected(color);
+//                    dialog.dismiss();
+//                })
+//                .neutralText(neutralTextResId)
+//                .autoDismiss(false)
+//                .onNeutral((dialog, which) -> {
+//                    if (ShuttleUtils.isUpgraded()) {
+//                        showCustomColorPickerDialog(fragment.getActivity(), selectedColor, listener);
+//                        dialog.dismiss();
+//                    } else {
+//                        showUpgradeDialog(fragment.getActivity(), (upgradeDialog, which1) -> {
+//                            if (ShuttleUtils.isAmazonBuild()) {
+//                                ShuttleUtils.openShuttleLink(fragment.getActivity(), "com.simplecity.amp_pro");
+//                            } else {
+//                                AnalyticsManager.logUpgrade(AnalyticsManager.UpgradeType.COLORS);
+//                                ((SettingsActivity) fragment.getActivity()).purchasePremiumUpgrade();
+//                            }
+//                        });
+//                    }
+//                })
+//                .customView(customView, false)
+//                .show();
     }
 
     public static void showCustomColorPickerDialog(Context context, int selectedColor, ColorSelectionListener listener) {
@@ -449,17 +449,17 @@ public class DialogUtils {
     /**
      * Displayed when the user chooses to upgrade
      */
-    public static void showUpgradeDialog(final Context context, MaterialDialog.SingleButtonCallback listener) {
-        getBuilder(context)
-                .title(context.getResources().getString(R.string.get_pro_title))
-                .content(context.getResources().getString(R.string.upgrade_dialog_message))
-                .positiveText(R.string.btn_upgrade)
-                .onPositive(listener)
-                .negativeText(R.string.get_pro_button_no)
-                .show();
-
-        AnalyticsManager.logUpgrade(AnalyticsManager.UpgradeType.UPGRADE);
-    }
+//    public static void showUpgradeDialog(final Context context, MaterialDialog.SingleButtonCallback listener) {
+//        getBuilder(context)
+//                .title(context.getResources().getString(R.string.get_pro_title))
+//                .content(context.getResources().getString(R.string.upgrade_dialog_message))
+//                .positiveText(R.string.btn_upgrade)
+//                .onPositive(listener)
+//                .negativeText(R.string.get_pro_button_no)
+//                .show();
+//
+//        AnalyticsManager.logUpgrade(AnalyticsManager.UpgradeType.UPGRADE);
+//    }
 
     /**
      * Displays the popup dialog recommending the user try the paid version
